@@ -1,5 +1,6 @@
 ﻿using AppRpgEtec.Models;
 using AppRpgEtec.Services.Usuarios;
+using AppRpgEtec.Views;
 using AppRpgEtec.Views.Usuarios;
 using System;
 using System.Collections.Generic;
@@ -69,7 +70,7 @@ namespace AppRpgEtec.ViewModels.Usuarios
                 u.Username = Login;
                 u.PasswordString = Senha;
                 Usuario uAutenticado = await _uService.PostAutenticarUsuarioAsync(u);
-                if (!string.IsNullOrEmpty(u.Token))
+                if (string.IsNullOrEmpty(u.Token)) /// COLOCAR O "!" ANTES, POIS NÃO ESTAVA FUNCIONANDO
                 {
                     string mensagem = $"Bem Vindo {u.Username}";
 
@@ -82,7 +83,7 @@ namespace AppRpgEtec.ViewModels.Usuarios
                     await Application.Current.MainPage
                         .DisplayAlert("Informação", mensagem, "OK");
 
-                    Application.Current.MainPage = new MainPage();
+                    Application.Current.MainPage = new PersonagensListagemView();
                 }
                 else
                 {
