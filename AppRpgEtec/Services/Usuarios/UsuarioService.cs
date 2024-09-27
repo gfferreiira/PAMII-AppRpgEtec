@@ -22,7 +22,7 @@ namespace AppRpgEtec.Services.Usuarios
         public async Task<Usuario> PostRegistrarUsuarioAsync(Usuario u)
         {
             string urlComplementar = "/Registrar";
-            u.Id = await _request.PostReturnIntAsync(_apiUrlBase + urlComplementar, u);
+            u.Id = await _request.PostReturnIntAsync(_apiUrlBase + urlComplementar, u, string.Empty);
 
             return u;
         }

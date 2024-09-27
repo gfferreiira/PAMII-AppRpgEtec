@@ -1,12 +1,15 @@
 ﻿using AppRpgEtec.Models;
 using AppRpgEtec.Models.Enums;
 using AppRpgEtec.Services.Personagens;
+using AppRpgEtec.Views;
+using AppRpgEtec.Views.Personagens;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 
 namespace AppRpgEtec.ViewModels.Personagens
 {
@@ -14,11 +17,23 @@ namespace AppRpgEtec.ViewModels.Personagens
     {
         private PersonagemService pService;
 
+        public ICommand SalvarCommand { get; }
+
+        public ICommand CancelarCommand { get; set; }
+
         public CadastroPersonagemViewModel()
         {
             string token = Preferences.Get("UsuarioToken", string.Empty);
             pService = new PersonagemService(token);
             _ = ObterClasses();
+
+            SalvarCommand = new Command(async () => { await SalvarPersonagem(); });
+            CancelarCommand = new Command(async => CancelarCadastro());
+        }
+
+        private async void CancelarCadastro()
+        {
+            await Shell.Current.GoToAsync("..");
         }
 
         private int id;
@@ -190,7 +205,7 @@ namespace AppRpgEtec.ViewModels.Personagens
                 await Application.Current.MainPage
                     .DisplayAlert("Mensagem", "Dados salvos com sucesso!", "Ok");
 
-                await Shell.Current.GoToAsync("..");
+                Application.Current.MainPage = new PersonagensListagemView();
             }
             catch (Exception ex)
             {

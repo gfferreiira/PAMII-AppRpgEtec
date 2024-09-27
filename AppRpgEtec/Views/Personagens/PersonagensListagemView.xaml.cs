@@ -14,4 +14,10 @@ public partial class PersonagensListagemView : ContentPage
 		BindingContext = viewModel;
 		Title = "Personagens - App Rpg Etec";
 	}
+
+    protected override void OnAppearing()
+    {
+        base.OnAppearing();
+		_ = viewModel.ObterPersonagens();
+    }
 }

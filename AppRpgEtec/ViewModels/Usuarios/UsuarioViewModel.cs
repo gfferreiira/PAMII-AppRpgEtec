@@ -70,7 +70,7 @@ namespace AppRpgEtec.ViewModels.Usuarios
                 u.Username = Login;
                 u.PasswordString = Senha;
                 Usuario uAutenticado = await _uService.PostAutenticarUsuarioAsync(u);
-                if (string.IsNullOrEmpty(u.Token)) /// COLOCAR O "!" ANTES, POIS NÃO ESTAVA FUNCIONANDO
+                if (!string.IsNullOrEmpty(uAutenticado.Token)) /// COLOCAR O "!" ANTES, POIS NÃO ESTAVA FUNCIONANDO
                 {
                     string mensagem = $"Bem Vindo {u.Username}";
 
@@ -111,13 +111,13 @@ namespace AppRpgEtec.ViewModels.Usuarios
 
                 Usuario uRegistrado = await _uService.PostRegistrarUsuarioAsync(u);
 
-                if (uRegistrado.Id != 0)
+                if (uRegistrado != null)
                 {
                     string mensagem = $"Usuário Id {uRegistrado.Id} Registrado com sucesso";
                     await Application.Current.MainPage.DisplayAlert("Informação", mensagem, "OK");
 
-                    await Application.Current.MainPage
-                           .Navigation.PopAsync();
+                    await Application.Current.MainPage.
+                            Navigation.PushAsync(new PersonagensListagemView());
                 }
             }
             catch (Exception ex)
