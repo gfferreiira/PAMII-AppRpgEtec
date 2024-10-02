@@ -8,9 +8,9 @@ namespace AppRpgEtec
         public AppShell()
         {
             InitializeComponent();
+            Routing.RegisterRoute("cadPersonagemView", typeof(CadastroPersonagemView));
 
-            Routing.RegisterRoute(nameof(CadastroPersonagemView), typeof(CadastroPersonagemView));
-            Routing.RegisterRoute(nameof(PersonagensListagemView), typeof(PersonagensListagemView));
+            //Routing.RegisterRoute(nameof(PersonagensListagemView), typeof(PersonagensListagemView));
 
             //   viewModel = new AppShellViewModel();
             //     BindingContext = viewModel;

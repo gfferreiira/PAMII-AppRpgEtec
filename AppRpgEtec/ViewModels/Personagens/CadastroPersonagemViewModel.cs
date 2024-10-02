@@ -13,6 +13,7 @@ using System.Windows.Input;
 
 namespace AppRpgEtec.ViewModels.Personagens
 {
+    [QueryProperty("PersonagemSelecionadoId", "pId")]
     public class CadastroPersonagemViewModel : BaseViewModel
     {
         private PersonagemService pService;
@@ -45,6 +46,7 @@ namespace AppRpgEtec.ViewModels.Personagens
         private int disputas;
         private int vitorias;
         private int derrotas;
+        private string personagemSelecionadoId;
 
         public int Id
         {
@@ -182,6 +184,18 @@ namespace AppRpgEtec.ViewModels.Personagens
             }
         }
 
+        public string PersonagemSelecionadoId
+        {
+            set
+            {
+                if (value != null)
+                {
+                    personagemSelecionadoId = Uri.UnescapeDataString(value);
+                    CarregarPersonagem();
+                }
+            }
+        }
+
         public async Task SalvarPersonagem()
         {
             try
@@ -201,11 +215,41 @@ namespace AppRpgEtec.ViewModels.Personagens
                 };
                 if (model.Id == 0)
                     await pService.PostPersonagemAsync(model);
+                else
+                    await pService.PutPersonagemAsync(model);
+
 
                 await Application.Current.MainPage
                     .DisplayAlert("Mensagem", "Dados salvos com sucesso!", "Ok");
 
                 Application.Current.MainPage = new PersonagensListagemView();
+            }
+            catch (Exception ex)
+            {
+                await Application.Current.MainPage
+                    .DisplayAlert("Ops", ex.Message + " Detalhes: " + ex.InnerException, "Ok");
+            }
+        }
+
+        public async void CarregarPersonagem()
+        {
+            try
+            {
+                Personagem p = await
+                    pService.GetPersonagemAsync(int.Parse(personagemSelecionadoId));
+
+                this.Nome = p.Nome;
+                this.PontosVida = p.PontosVida;
+                this.Defesa = p.Defesa;
+                this.Derrotas = p.Derrotas;
+                this.Disputas = p.Disputas;
+                this.Forca = p.Forca;
+                this.Inteligencia = p.Inteligencia;
+                this.Vitorias = p.Vitorias;
+                this.Id = p.Id;
+
+                TipoClasseSelecionado = this.ListaTiposClasse
+                    .FirstOrDefault(tClasse => tClasse.Id == (int)p.Classe);
             }
             catch (Exception ex)
             {
