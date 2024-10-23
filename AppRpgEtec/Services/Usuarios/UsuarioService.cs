@@ -12,7 +12,7 @@ namespace AppRpgEtec.Services.Usuarios
 
         private readonly Request _request;
 
-        private const string _apiUrlBase = "http://localhost:5104/Usuarios";
+        private const string _apiUrlBase = "https://rpgapi20242pam.azurewebsites.net";
 
         public UsuarioService()
         {

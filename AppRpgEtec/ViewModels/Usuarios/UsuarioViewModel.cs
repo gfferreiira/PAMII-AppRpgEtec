@@ -37,6 +37,7 @@ namespace AppRpgEtec.ViewModels.Usuarios
         #region AtributosPropriedades
         private string login = string.Empty;
         private string senha = string.Empty;
+       
 
         public string Login
         {
@@ -57,6 +58,7 @@ namespace AppRpgEtec.ViewModels.Usuarios
                 OnPropertyChanged();
             }
         }
+
 
         #endregion
 
