@@ -12,7 +12,7 @@ namespace AppRpgEtec.Services.Personagens
     {
         private readonly Request _request;
 
-        private const string apiUrlBase = "https://rpgapi20242pam.azurewebsites.net/Personagem ";
+        private const string apiUrlBase = "https://rpgapi20242pam.azurewebsites.net/Personagens";
 
         private string _token;
 

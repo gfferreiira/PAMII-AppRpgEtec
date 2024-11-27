@@ -51,7 +51,7 @@
 
     <ShellContent
         Title="Disputas" Icon="menudisputas.svg"
-        ContentTemplate="{DataTemplate viewsDisputas:ListagemView}"
+        ContentTemplate="{DataTemplate viewsDisputas:ListagemView2}"
       />
 
         <Tab Title="Info" Route="info" Icon="info.svg">

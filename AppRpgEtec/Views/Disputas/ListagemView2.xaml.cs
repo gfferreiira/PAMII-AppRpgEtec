@@ -2,10 +2,10 @@ using AppRpgEtec.ViewModels.Disputas;
 
 namespace AppRpgEtec.Views.Disputas;
 
-public partial class ListagemView : ContentPage
+public partial class ListagemView2 : ContentPage
 {
 	DisputaViewModel viewModel;
-	public ListagemView()
+	public ListagemView2()
 	{
 		InitializeComponent();
 
